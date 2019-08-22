@@ -1,0 +1,10 @@
+import wollok.game.*
+
+program iniciarJuego {
+	game.title("Mario el ahorrista")
+	game.addVisual(mario)
+	game.addVisual(peso)
+	game.addVisual(unDolar)
+	game.addVisual(flor)
+	game.start()
+}
