@@ -4,13 +4,13 @@ object juego {
 
 	method iniciar() {
 		game.title("Mario el ahorrista")
-		game.width(11)
+		game.width(7)
 		game.height(7)
-		game.addVisual(mario)
 		game.addVisual(peso)
 		game.addVisual(unDolar)
 		game.addVisual(flor)
 		game.addVisual(balanza)
+		game.addVisual(mario)
 		game.start()
 	}
 
@@ -21,10 +21,11 @@ object mario {
 	var position = game.center()
 	var pesosAhorrados = 0
 
-	method levantar(moneda) {
-		position = moneda.position()
-		pesosAhorrados += moneda.valor()
-		game.removeVisual(moneda)
+	method levantar(cosa) {
+		position = cosa.position()
+		pesosAhorrados = pesosAhorrados + cosa.valor()
+		game.say(mario, "Junte " + cosa.valor().toString())
+		
 	}
 
 	method mostrarAhorros() {
@@ -33,32 +34,28 @@ object mario {
 	
 	method ahorros() = pesosAhorrados
 	
-	method image() = "mario.png"
+	method image() { return "mario.png"}
+	method position() { return position}
 
 }
 
 object peso {
 
 	var valor = 5
-	var position = game.center().right(2)
 
-	method valor() = valor
+	method valor() {return valor}
 
-	method position() = position
-
-	method image() = "peso.png"
+	method position() {return game.center().right(2)}
+	method image() {return "peso.png"}
 
 }
 
 object unDolar {
 
-	var position = game.center().left(2)
-
 	method valor() = banco.cotizacion()
 
-	method position() = position
-
-	method image() = "dolar.png"
+	method position() {return game.center().left(2)}
+	method image() {return "dolar.png"}
 
 }
 
@@ -66,14 +63,14 @@ object banco {
 
 	var cotizacion = 45
 	
-	method cotizacion() = cotizacion
+	method cotizacion() {return cotizacion}
 
-	method corridaBancaria(){
-		cotizacion = 55
+	method corrida(){
+		cotizacion = 57
 		balanza.desbalancear()
 	}
 
-	method situacionNormal(){
+	method tranquilidad(){
 		cotizacion = 45
 		balanza.balancear()
 	}
@@ -82,30 +79,27 @@ object banco {
 
 object flor {
 
-	var position = game.center().up(2)
+	method valor() {return 0}
 
-	method position() = position
-
-	method image() = "flor.png"
+	method position() {return game.center().up(2)}
+	method image() {return "flor.png"}
 
 }
 
 
 object balanza {
-	var imagen = "balanceado.png"
+	const imagenBalanceada ="balanceado.png" 
+	var imagen = imagenBalanceada 
 	
 	method balancear() { 
-		imagen = "balanceado.png"
-		game.say(balanza, "El valor del dolar se estabiliza.")
+		imagen = imagenBalanceada 
 	}
 	
 	method desbalancear() { 
 		imagen = "desbalanceado.png"
-		game.say(balanza, "Hay corrida! Todos a comprar dolares!")
 	}
 	
-	method position() = game.center().down(3)
-	
-	method image() = imagen
+	method position() {return game.center().down(2)}
+	method image() {return imagen}
 }
 
