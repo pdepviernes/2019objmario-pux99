@@ -11,6 +11,7 @@ object juego {
 		game.addVisual(flor)
 		game.addVisual(balanza)
 		game.addVisual(mario)
+		game.addVisual(cubo)
 		game.start()
 	}
 
@@ -20,6 +21,7 @@ object mario {
 
 	var position = game.center()
 	var pesosAhorrados = 0
+	
 
 	method levantar(cosa) {
 		position = cosa.position()
@@ -36,9 +38,22 @@ object mario {
 	
 	method image() { return "mario.png"}
 	method position() { return position}
-
+	method agrregar(monto)
+	{pesosAhorrados*=monto}
+	
+	
 }
-
+object invertir
+{
+	method plazoFijo(persona)
+	{
+		persona.agrregar(persona.ahorros()*0.02)	
+	}
+	method debuck (persona)
+	{
+		persona.agrregar((((persona.ahorros()+banco.ahorros())/2)*0.1)) 	
+	}
+}
 object peso {
 
 	var valor = 5
@@ -60,9 +75,9 @@ object unDolar {
 }
 
 object banco {
-
+	var fondos=100
 	var cotizacion = 45
-	
+	var platainterna= 1000
 	method cotizacion() {return cotizacion}
 
 	method corrida(){
@@ -74,7 +89,10 @@ object banco {
 		cotizacion = 45
 		balanza.balancear()
 	}
-
+	method ahorros()
+	{
+		return fondos
+	}
 }
 
 object flor {
@@ -102,4 +120,13 @@ object balanza {
 	method position() {return game.center().down(2)}
 	method image() {return imagen}
 }
+object cubo {
 
+	var valor = 50
+
+	method valor() {return valor}
+
+	method position() {return game.center().right(2).up(2)}
+	method image() {return "cubo mario.png"}
+
+}
