@@ -12,6 +12,13 @@ object juego {
 		game.addVisual(balanza)
 		game.addVisual(mario)
 		game.addVisual(cubo)
+		game.onTick(10000,"crisis",{banco.corrida()})
+		keyboard.d().onPressDo({mario.levantar(peso)})
+		keyboard.a().onPressDo({mario.levantar(unDolar)})
+		keyboard.s().onPressDo({mario.levantar(banco)})
+		keyboard.w().onPressDo({mario.levantar(flor)})
+		keyboard.enter().onPressDo({mario.mostrarAhorros()})
+		game onCololideDo(mario,{algo=>mario.levanta(algo)})
 		game.start()
 	}
 
@@ -22,7 +29,8 @@ object mario {
 	var position = game.center()
 	var pesosAhorrados = 0
 	
-
+//	method derecha()
+//	{position = {x+=1,y=y}}
 	method levantar(cosa) {
 		position = cosa.position()
 		pesosAhorrados = pesosAhorrados + cosa.valor()
